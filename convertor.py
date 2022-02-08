@@ -69,7 +69,6 @@ async def main():
 
         await app.storage.save()
 
-        # ...to some chat ID
         print(f'Session success converted and saved to {PYROGRAM_SESSION_FILE}')
 
 
