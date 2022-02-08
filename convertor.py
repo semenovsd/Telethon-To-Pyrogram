@@ -15,7 +15,7 @@ from telethon.tl import types
 
 
 # Remember to use your own values from my.telegram.org!
-SESSION_NAME: str = input("Please insert telethon session file name: ")
+SESSION_NAME: str = input("Please insert telethon session file, e.g. +79212121212: ")
 API_ID: int = int(input("Please insert session api id: "))
 API_HASH: str = input("Please insert session api hash: ")
 
@@ -25,9 +25,8 @@ BASE_DIR: os.path = Path(__file__).resolve().parent
 TELETHON_SESSION_DIR: os.path = os.path.join(BASE_DIR, 'telethon/')
 TELETHON_SESSION_FILE: os.path = os.path.join(TELETHON_SESSION_DIR, f'{SESSION_NAME}.session')
 
-
 # Insert path to pyrogram session dir
-PYROGRAM_SESSION_DIR: os.path = os.path.join(BASE_DIR, 'telethon/+8801309633721/pyrogram/')
+PYROGRAM_SESSION_DIR: os.path = os.path.join(BASE_DIR, 'pyrogram/')
 PYROGRAM_SESSION_FILE: os.path = os.path.join(PYROGRAM_SESSION_DIR, f'{SESSION_NAME}.session')
 
 
@@ -54,7 +53,7 @@ async def main():
 
     async with Client(pyro_session_string, api_id=API_ID, api_hash=API_HASH,
                       workdir=PYROGRAM_SESSION_DIR) as app:
-        file_storage = FileStorage(SESSION_NAME, PYROGRAM_SESSION_DIR)
+        file_storage = FileStorage(SESSION_NAME, Path(PYROGRAM_SESSION_DIR))
         file_storage.conn = sqlite3.Connection(PYROGRAM_SESSION_FILE)
 
         app.storage = file_storage
