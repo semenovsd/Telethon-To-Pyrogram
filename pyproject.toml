@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "teleton-to-pyrogram"
+version = "0.1.0"
+description = ""
+authors = ["Stanislav Semenov <semenov_sd@bk.ru>"]
+
+[tool.poetry.dependencies]
+python = "3.9.4"
+Pyrogram = "^1.4.1"
+Telethon = "^1.24.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
