@@ -1,0 +1,6 @@
+/.idea/
+/venv/
+*.session
+*/*.session
+.env
+/dist/

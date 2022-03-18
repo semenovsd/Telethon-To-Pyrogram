@@ -1,15 +1,23 @@
 [tool.poetry]
-name = "teleton-to-pyrogram"
-version = "0.1.0"
-description = ""
+name = "tele-pyro"
+version = "0.1.1.8"
+description = "Script for convert telethon sesession file to pyrogram session file"
+license = "MIT"
 authors = ["Stanislav Semenov <semenov_sd@bk.ru>"]
+readme = "README.md"
+repository = "https://github.com/semenovsd/Telethon-To-Pyrogram"
+homepage = "https://github.com/semenovsd/Telethon-To-Pyrogram"
+keywords = ["telethon", "pyrogram", "session", "convert"]
 
 [tool.poetry.dependencies]
 python = "3.9.4"
-Pyrogram = "^1.4.1"
 Telethon = "^1.24.0"
+Pyrogram = "^1.4.8"
+TgCrypto = "^1.2.3"
 
 [tool.poetry.dev-dependencies]
+isort = "^5.10.1"
+black = "^22.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
