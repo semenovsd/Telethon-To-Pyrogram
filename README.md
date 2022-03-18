@@ -1,7 +1,4 @@
 <h1>Telethon to Pyrogram</h1>
-https://img.shields.io/github/license/semenovsd/Telethon-To-Pyrogram
-https://img.shields.io/github/downloads/semenovsd/Telethon-To-Pyrogram/total
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 <h4>Simple script for convert telethon session file to pyrogram session file</h4>
 
