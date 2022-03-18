@@ -6,5 +6,5 @@
 
 1. Clone repo `git clone git@github.com:semenovsd/Telethon-To-Pyrogram.git`
 2. Install Telethon and Pyrogram `poetry install` or user pip `pip install Telethon Pyrogram`
-3. Run convertor.py `python convertor.py -f path/to/file.session (or -d path/to/dir/) -p ... --hash [api_hash] --id [api_id]`
+3. Run convertor.py `python convertor.py -f path/to/file.session (or -d path/to/dir/) -p path/to/save/dir/ --hash [api_hash] --id [api_id]`
 Done!
