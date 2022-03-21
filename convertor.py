@@ -7,6 +7,8 @@ from argparse import Namespace
 from pathlib import Path
 from typing import Union
 
+from pyrogram.errors import PeerFlood, BadRequest
+
 from pyrogram import Client
 from pyrogram.storage import FileStorage, Storage
 from telethon import TelegramClient
@@ -67,12 +69,15 @@ async def save_pyro_session(client: Client, session_data: StringSession):
 async def convert(params: Namespace):
     params.pyro_session_file = os.path.join(params.pyro_session_dir, os.path.basename(params.telethon_session_file))
     if os.path.exists(params.pyro_session_file):
-        # os.remove(params.pyro_session_file)
+        if params.overwrite:
+            os.remove(params.pyro_session_file)
         raise FileExistsError(f'File {params.pyro_session_file} already exist!')
     params.pyro_session_name = os.path.splitext(os.path.basename(params.telethon_session_file))[0]
+    params.tele_session_path = params.telethon_session_file.partition('.session')[0]
 
     # The first parameter is the .session file name (absolute paths allowed)
-    async with TelegramClient(params.telethon_session_file, params.api_id, params.api_hash) as client:
+    print(f'Try convert session file: {params.telethon_session_file}')
+    async with TelegramClient(params.tele_session_path, params.api_id, params.api_hash) as client:
         # Getting information about yourself
         user_data = await get_user_data(client)
         # Getting session information
@@ -88,6 +93,22 @@ async def convert(params: Namespace):
         client.storage.conn = sqlite3.Connection(params.pyro_session_file)  # sqlite3.OperationalError: not exist
         client.storage.create()  # sqlite3.OperationalError: already exists
         await save_pyro_session(client, session_data)
+        # Leave from all chats if set flag --leave
+        if params.leave_all_chats:
+            async for dialog in client.iter_dialogs():
+                try:
+                    await client.leave_chat(chat_id=dialog.chat.id, delete=True)
+                    await asyncio.sleep(0.2)
+                except PeerFlood:
+                    break
+                except BadRequest as e:
+                    print(f'Can`t leave from chat {dialog.chat.id} error is {e}')
+        # Send notification if set flag --message
+        if params.send_msg_to:
+            try:
+                await client.send_message(params.send_msg_to, "Test message")
+            except BadRequest as e:
+                print(f'Can`t send test message to {params.send_msg_to} error is {e}')
     print(f'Session success converted and saved to {params.pyro_session_file}')
 
 
@@ -124,6 +145,9 @@ async def start(params: Namespace):
     for file in files:
         params.telethon_session_file = file
         await convert(params)
+        # Delete source session file if set flag --delete
+        if params.delete_source_file:
+            os.remove(params.telethon_session_file)
 
 
 if __name__ == "__main__":

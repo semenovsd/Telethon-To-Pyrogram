@@ -43,7 +43,7 @@ def parse_args():
         required=False,
         type=str,
         default=None,
-        help="App api_hash from https://my.telegram.org/apps",
+        help="App api_hash from https://my.telegram.org/apps ",
     )
     parser.add_argument(
         "--id",
@@ -51,6 +51,43 @@ def parse_args():
         required=False,
         type=str,
         default=None,
-        help="App api_id from https://my.telegram.org/apps",
+        help="App api_id from https://my.telegram.org/apps ",
+    )
+    parser.add_argument(
+        '-o',
+        dest="overwrite",
+        required=False,
+        type=bool,
+        nargs='?',
+        const=True,
+        default=False,
+        help="Overwrite destination file if exist",
+    )
+    parser.add_argument(
+        '--message',
+        dest="send_msg_to",
+        required=False,
+        type=str,
+        help="Send test message from client",
+    )
+    parser.add_argument(
+        '--delete',
+        dest="delete_source_file",
+        required=False,
+        type=bool,
+        nargs='?',
+        const=True,
+        default=False,
+        help="Delete source session file after success convert",
+    )
+    parser.add_argument(
+        '--leave',
+        dest="leave_all_chats",
+        required=False,
+        type=bool,
+        nargs='?',
+        const=True,
+        default=False,
+        help="Should client exit from all chats",
     )
     return parser.parse_args()

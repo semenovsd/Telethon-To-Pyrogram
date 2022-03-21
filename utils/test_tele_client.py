@@ -13,7 +13,7 @@ TG_USERNAME_RECIPIENT: str = input(
 
 async def check_telethon():
     async with TelegramClient(
-        TELETHON_SESSION_FILE, api_id=API_ID, api_hash=API_HASH
+        TELETHON_SESSION_FILE.partition('.session')[0], api_id=API_ID, api_hash=API_HASH
     ) as client:
         await client.send_message(TG_USERNAME_RECIPIENT, "Client success work!")
 

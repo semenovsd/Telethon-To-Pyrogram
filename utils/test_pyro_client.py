@@ -12,7 +12,7 @@ TG_USERNAME_RECIPIENT: str = input(
 
 
 async def check_pyro():
-    async with Client(PYROGRAM_SESSION_FILE, api_id=API_ID, api_hash=API_HASH) as app:
+    async with Client(PYROGRAM_SESSION_FILE.partition('.session')[0], api_id=API_ID, api_hash=API_HASH) as app:
         await app.send_message(TG_USERNAME_RECIPIENT, "Client success work!")
 
 

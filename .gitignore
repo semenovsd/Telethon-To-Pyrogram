@@ -4,3 +4,4 @@
 */*.session
 .env
 /dist/
+*.json
