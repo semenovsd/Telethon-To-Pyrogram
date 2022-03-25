@@ -71,7 +71,8 @@ async def convert(params: Namespace):
     if os.path.exists(params.pyro_session_file):
         if params.overwrite:
             os.remove(params.pyro_session_file)
-        raise FileExistsError(f'File {params.pyro_session_file} already exist!')
+        else:
+            raise FileExistsError(f'File {params.pyro_session_file} already exist!')
     params.pyro_session_name = os.path.splitext(os.path.basename(params.telethon_session_file))[0]
     params.tele_session_path = params.telethon_session_file.partition('.session')[0]
 
@@ -103,6 +104,7 @@ async def convert(params: Namespace):
                     break
                 except BadRequest as e:
                     print(f'Can`t leave from chat {dialog.chat.id} error is {e}')
+                    continue
         # Send notification if set flag --message
         if params.send_msg_to:
             try:
